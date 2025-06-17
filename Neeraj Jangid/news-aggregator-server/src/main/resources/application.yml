@@ -1,0 +1,67 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: news-aggregator-server
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/news_aggregator?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+# External API Configurations
+news:
+  api:
+    newsapi:
+      base-url: https://newsapi.org/v2
+      api-key: ${NEWSAPI_KEY}
+    thenewsapi:
+      base-url: https://api.thenewsapi.com/v1
+      api-key: ${THENEWSAPI_KEY}
+    firebase:
+      base-url: https://us-central1-symbolic-gift98004.cloudfunctions.net
+      api-key: af3ce09176fb4fd3be6fcfd1e000776c
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:your-secret-key-here}
+  expiration: 86400000 # 24 hours in milliseconds
+
+# Swagger Configuration
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.newsaggregator: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO 
